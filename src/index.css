@@ -1,0 +1,19 @@
+
+
+body,
+html{
+  background:linear-gradient(to right, #BE80DC, #dcbef9 );
+  height: 100%;
+  margin: 0;
+
+}
+
+div,h1,h2,h3,h4,h5,h6,i,img,header,label,li,nav,p,small,span,ul{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
