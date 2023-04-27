@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import {connect} from 'react-redux';
 import { signOutAPI } from "../../actions";
+
 import { Link } from "react-router-dom";
 import { useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import {  auth, storage,db } from "../../firebase";
-import {  updateProfile } from 'firebase/auth';
+import {  signOut,updateProfile } from 'firebase/auth';
 import {  doc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -116,7 +117,7 @@ const Header = (props) => {
                 </span>
               </a>
 
-              <SignOut onClick={()=>props.signOut()}>
+              <SignOut onClick={()=>props.signOut(auth)}>
                 <a>Sign Out</a>
               </SignOut>
             </User>
