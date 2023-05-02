@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 import {connect} from 'react-redux';
 import { getUserAuth } from './actions';
 import Header from "./components/Home/Header";
@@ -9,21 +8,11 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Msg from "./components/msg.jsx"
 import "./App.css";
-import {AuthContext} from "./context/AuthContext"
-import {useContext} from "react"
+
 
 function App(props) {
-  const {currentUser}=useContext(AuthContext)
-  
-  const ProtectedRoute=({children})=>{
-    if(!currentUser){
-      return <Navigate to="/"/>
-    }
-    return children
-  };
   useEffect(()=>{
-    getUserAuth();
-   
+    props.getUserAuth();
   },[]);
   return (
     <div className="App">
@@ -31,10 +20,9 @@ function App(props) {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/home" element={<ProtectedRoute>
+          <Route path="/home" element={
           <div><Header/><Home/>
-          </div>
-          </ProtectedRoute>}>
+          </div>}>
         
             </Route>
             <Route path="/messaging" element={<Msg />} />

@@ -8,16 +8,13 @@ import {connect} from "react-redux";
 const Home = (props) => {
   return (
     <Container>
-    
+      {!props.user && <Navigate to='../'/>}
       <Section>
-        
       </Section>
       <Layout>
-        
         <Leftside />
         <Main />
       </Layout>
-
     </Container>
   );
 };
