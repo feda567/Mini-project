@@ -5,12 +5,30 @@ import { connect } from "react-redux";
 import { getArticlesAPI } from "../../actions";
 import ReactPlayer from "react-player";
 import fuzzyTime from "fuzzy-time";
+import {updateDoc,doc} from "firebase/firestore";
+import { db } from "../../firebase";
+
+
 const Main = (props) => {
   const [showModal,setShowModal]=useState("close");
 
   useEffect(()=>{
     props.getArticles();
   },[]);
+
+  const fetchLikes = (articleId, likes) => {
+    const updatedLikes = likes.some((l) => l.email === props.user.email)
+      ? likes.filter((l) => l.email !== props.user.email)
+      : [
+          { name: props.user.displayName, email: props.user.email, photo: props.user.photoURL },
+          ...likes,
+        ];
+  
+    // Update the likes in the database or API
+    updateDoc(doc(db, "articles", articleId), {
+      likes: updatedLikes,
+    });
+  };
 
   const handleClick=(e)=>{
     e.preventDefault();
@@ -109,24 +127,40 @@ const Main = (props) => {
             </a>
           </SharedImg>
           <SocialCounts>
-            <li>
-              <button>
-                <img src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb" alt=""/>
-                <img src="https://static-exp1.licdn.com/sc/h/5thsbmikm6a8uov24ygwd914f" alt=""/>
-                <span>75</span>
-              </button>
-            </li>
+          <li>
+                {article.likes.length > 0 && (
+                  <img
+                    className="likes"
+                    src="images/red-hearts.svg"
+                    alt="likes"
+                  />
+                )}
+                <span>
+                {article.likes.length} {article.likes.length === 1 ? "Like" : "Likes"}
+                </span>
+              </li>
             <li>
               <a>
-                {article.comments} Comments
+                {article.comments} 
               </a>
               </li>
           </SocialCounts>
           <SocialActions>
-          <button>
-            <img src="/images/like-icon.svg" className="review" alt=""/>
-            <span></span>
-          </button>
+          <button
+      className={
+        article.likes.some((l) => l.email === props.user.email) ? "active" : ""
+      }
+      onClick={(e) => {
+        fetchLikes(article.id, article.likes);
+      }}
+    >
+                <img className="unLiked" src='/images/like-icon.svg' alt="" />
+                <img
+                  className="liked"
+                  src='/images/liked-icon.svg'
+                  alt=""
+                />
+  </button>
           <button>
             <img src="/images/comment-icon.svg" className="review" alt=""/>
             <span></span>
@@ -313,6 +347,9 @@ li{
     border:none;
     background-color:white;
   }
+  img{
+    width:25px;
+  }
 }
 `;
 const SocialActions=styled.div`
@@ -326,9 +363,30 @@ button{
   display:inline-flex;
   align-items:center;
   padding:8px;
-  color:#0a66c2;
   background:transparent;
   border:none;
+  .liked{
+      display:none;
+      width:25px;
+    }
+    .unLiked{
+      display:flex;
+     width:25px;
+    }
+
+    &:hover{
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+
+    &.active {
+      color: #ab0c1c;
+      .liked {
+        display: inline-block;
+      }
+      .unLiked {
+        display: none;
+      }
+    }
   @media(min-width:768px){
   }
 
@@ -350,7 +408,12 @@ const mapStateToProps=(state)=>{
   return{
     loading:state.articleState.loading,
     user:state.userState.user,
-    articles:state.articleState.articles,
+    articles:state.articleState.articles.map((article)=>({
+      ...article,
+      id:state.articleState.articles.find((a)=>a.id===article.id)
+      .id,
+    })),
+    articleIDs: state.articleState.articles.map((article) => article.id),
   };
 };
 const mapDispatchToProps=(dispatch)=>({
