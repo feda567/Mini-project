@@ -367,11 +367,11 @@ button{
   border:none;
   .liked{
       display:none;
-      width:25px;
+      width:30px;
     }
     .unLiked{
       display:flex;
-     width:25px;
+     width:30px;
     }
 
     &:hover{
