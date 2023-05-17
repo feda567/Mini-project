@@ -5,14 +5,13 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDAtSTmvysGCQlnPeUHpAJ9ghWoW_4o3QU",
-  authDomain: "rough-97efd.firebaseapp.com",
-  projectId: "rough-97efd",
-  storageBucket: "rough-97efd.appspot.com",
-  messagingSenderId: "382822935380",
-  appId: "1:382822935380:web:fe7c8b88333564c28476c1"
+  apiKey: "AIzaSyCK1oFh9sHuybnSLQidVsZYByoZ_lc8HXY",
+  authDomain: "cusat-37be2.firebaseapp.com",
+  projectId: "cusat-37be2",
+  storageBucket: "cusat-37be2.appspot.com",
+  messagingSenderId: "531409539038",
+  appId: "1:531409539038:web:59c8f0bf491eba0ba4d74f"
 };
-
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
