@@ -4,6 +4,7 @@ import PostModal from "./PostModal";
 import { connect } from "react-redux";
 import { getArticlesAPI } from "../../actions";
 import ReactPlayer from "react-player";
+import fuzzyTime from "fuzzy-time";
 const Main = (props) => {
   const [showModal,setShowModal]=useState("close");
 
@@ -90,7 +91,7 @@ const Main = (props) => {
             <div>
               <span>{article.actor.title}</span>
               <span>{article.actor.description}</span>
-              <span>{Date()}</span>
+              <span>{fuzzyTime(article.actor.date)}</span>
             </div>
           </a>
           </SharedActor>
