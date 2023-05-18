@@ -1,6 +1,6 @@
 import {auth,provider,storage} from "../firebase";
 import {db} from '../firebase';
-import { SET_USER,SET_LOADING_STATUS,GET_ARTICLES } from "./actionType";
+import { SET_USER,SET_LOADING_STATUS,GET_ARTICLES,ADD_COMMENT} from "./actionType";
 
 export const setUser=(payload)=>({
     type:SET_USER,
@@ -16,6 +16,7 @@ export const getArticles=(payload)=>({
     type:GET_ARTICLES,
     payload: payload,
 });
+
 
 export function signInAPI(){
     return (dispatch)=>{

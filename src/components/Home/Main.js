@@ -7,10 +7,13 @@ import ReactPlayer from "react-player";
 import fuzzyTime from "fuzzy-time";
 import {updateDoc,doc} from "firebase/firestore";
 import { db } from "../../firebase";
+import Comment from "./Comment";
 
 
 const Main = (props) => {
   const [showModal,setShowModal]=useState("close");
+  const [showComments, setShowComments] = useState([]);
+
 
   useEffect(()=>{
     props.getArticles();
@@ -87,10 +90,6 @@ const Main = (props) => {
           </button>
         </button>
         <button>
-          <img src="/images/event-icon.svg" className="feed-images" alt=""/>
-          <span>Event</span>
-        </button>
-        <button>
           <img src="/images/poll-icon.svg" className="feed-images" alt=""/>
           <span>Poll</span>
         </button>
@@ -132,17 +131,15 @@ const Main = (props) => {
                   <img
                     className="likes"
                     src="images/red-hearts.svg"
-                    alt="likes"
+                    alt=""
                   />
                 )}
-                <span>
-                {article.likes.length} {article.likes.length === 1 ? "Like" : "Likes"}
+                <span className="likes">
+                {article.likes.length} {article.likes.length === 1 ? "like • " : "likes •"}
                 </span>
               </li>
-            <li>
-              <a>
-                {article.comments} 
-              </a>
+              <li onClick={() => setShowComments((prev) => [...prev, article.id])}>
+                <p className="comments">{article.comments ? article.comments.length : 0} comments </p>
               </li>
           </SocialCounts>
           <SocialActions>
@@ -161,12 +158,20 @@ const Main = (props) => {
                   alt=""
                 />
   </button>
-          <button>
+  <button onClick={() => setShowComments((prev) => [...prev, article.id])}>
             <img src="/images/comment-icon.svg" className="review" alt=""/>
             <span></span>
           </button>
           
           </SocialActions>
+          {showComments.includes(article.id) && (
+              <Comment
+                photo={props.user?.photoURL}
+                comments={article.comments}
+                user={props.user}
+                id={article.id}
+              />
+            )}
       </Article>
     ))}
       </Content>
@@ -331,7 +336,7 @@ img{
 `;
 
 const SocialCounts=styled.ul`
-line-height:1.3;
+line-height:2.3;
 display:flex;
 align-items:flex-start;
 overflow:auto;
@@ -339,9 +344,15 @@ margin:0 16px;
 padding:8px 0;
 border-bottom:1px solid #e9e5df;
 list-style:none;
+.likes{
+  justify-content:flex-start;
+}
+
 li{
+  display:flex;
+  align-items:center;
   margin-right:5px;
-  font-size:12px;
+  font-size:13px;
   button{
     display:flex;
     border:none;
@@ -349,6 +360,10 @@ li{
   }
   img{
     width:25px;
+    
+  }
+  .comments{
+   cursor:pointer;
   }
 }
 `;
@@ -380,7 +395,7 @@ button{
 
     &.active {
       color: #ab0c1c;
-      .liked {
+      .liked{
         display: inline-block;
       }
       .unLiked {
