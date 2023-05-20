@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { getArticlesAPI } from "../../actions";
 import ReactPlayer from "react-player";
 import fuzzyTime from "fuzzy-time";
-import {updateDoc,doc} from "firebase/firestore";
+import {updateDoc,doc,deleteDoc} from "firebase/firestore";
 import { db } from "../../firebase";
 import Comment from "./Comment";
 
@@ -13,7 +13,7 @@ import Comment from "./Comment";
 const Main = (props) => {
   const [showModal,setShowModal]=useState("close");
   const [showComments, setShowComments] = useState([]);
-
+  const [showEditPost,setShowEditPost]=useState(false);
 
   useEffect(()=>{
     props.getArticles();
@@ -32,6 +32,13 @@ const Main = (props) => {
       likes: updatedLikes,
     });
   };
+
+  const deletePost = (id) => {
+    deleteDoc(doc(db, "articles", id));
+  };
+
+  
+  
 
   const handleClick=(e)=>{
     e.preventDefault();
@@ -111,6 +118,20 @@ const Main = (props) => {
               <span>{fuzzyTime(article.actor.date)}</span>
             </div>
           </a>
+          <button onClick={() => setShowEditPost((prev)=>(prev===article.id ? null :article.id))}> 
+          {article.actor.description === props.user.email && (
+          <img src="./images/ellipsis.svg" alt=""/>
+          )}
+          </button>
+          {showEditPost === article.id && article.actor.description === props.user.email && (
+                <EditModel>
+                  
+                    <li onClick={() => deletePost(article.id)}>
+                      <img src="/images/delete.svg" alt="" />
+                      <h6>Delete post</h6>
+                    </li>
+                </EditModel>
+              )}
           </SharedActor>
           <Description>
             {article.description}
@@ -139,7 +160,8 @@ const Main = (props) => {
                 </span>
               </li>
               <li onClick={() => setShowComments((prev) => [...prev, article.id])}>
-                <p className="comments">{article.comments ? article.comments.length : 0} comments </p>
+              <p className="comments">{article.comments ? (article.comments.length === 1 ? '1 comment' : `${article.comments.length} comments`) : '0 comments'}</p>
+
               </li>
           </SocialCounts>
           <SocialActions>
@@ -313,6 +335,49 @@ button{
   padding:.5px;
 }
 `;
+
+const EditModel = styled.ul`
+  animation: fadeIn 0.5s;
+  text-align: start;
+  position: absolute;
+  right: 5px;
+  top: 55px;
+  background-color: white;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 6px 9px rgb(0 0 0 / 20%);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 99;
+  min-width: 250px;
+  li {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+    img {
+      width: 18px;
+      height: 20px;
+    }
+    h6 {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 1);
+      font-weight: 600;
+    }
+    .info {
+      text-align: start;
+      span {
+        font-size: 12px;
+        display: block;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+`;
+
 
 const Description=styled.div`
 padding:0 16px;
