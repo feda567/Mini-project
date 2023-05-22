@@ -87,13 +87,7 @@ const Leftside = (props) => {
           </a>
         </UserInfo>
         <Widget>
-          <a>
-            <div>
-              <span>Connections</span>
-              <span>Grow your network</span>
-            </div>
-            <img src="/images/widget-icon.svg" alt="" />
-          </a>
+          
         </Widget>
         
       </ArtCard>
@@ -195,24 +189,6 @@ const Widget = styled.div`
   }
 `;
 
-const Item = styled.a`
-  border-color: rgba(0, 0, 0, 0.8);
-  text-align: left;
-  padding: 12px;
-  font-size: 12px;
-  display: block;
-  span {
-    display: flex;
-    align-items: center;
-    color: rgba(0, 0, 0, 1);
-    svg {
-      color: rgba(0, 0, 0, 0.6);
-    }
-  }
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.08);
-  }
-`;
 
 
 const mapStateToProps=(state)=>{

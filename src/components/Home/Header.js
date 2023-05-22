@@ -8,8 +8,43 @@ import {  auth, storage,db } from "../../firebase";
 import {  updateProfile } from 'firebase/auth';
 import {  doc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import "./Home.css";
+import { useUser } from "../../context/AuthContext";
 
 const Header = (props) => { 
+  const [filteredData, setFilteredData] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
+
+  const { fetchDetails, data } = useUser();
+  console.log(data);
+
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+
+    setWordEntered(searchWord);
+
+    const newFilter = data.filter((value) => {
+      return value.toLowerCase().includes(searchWord.toLowerCase());
+    });
+
+    if (searchWord === "") {
+      setFilteredData([]);
+    } else {
+      setFilteredData(newFilter);
+    }
+  };
+
+  useEffect(() => {
+    fetchDetails();
+
+    return () => {
+      data.splice(0, data.length);
+    };
+  }, []);
+
+  
+
+
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null);
   const { currentUser } = useContext(AuthContext);
@@ -65,6 +100,9 @@ const Header = (props) => {
   if (loading) {
     return <div>Loading...</div>;
   }
+
+
+
   return (
     <Container>
       <Content>
@@ -73,14 +111,35 @@ const Header = (props) => {
             <img src="/images/cusatconnects.svg" alt="" />
           </a>
         </Logo>
-        <Search>
+        <Search className="search">
           <div>
-            <input type="text" placeholder="Search" />
+            <div>
+              <input
+                type="text"
+                placeholder="Search"
+                value={wordEntered}
+                onChange={handleFilter}
+              />
+            </div>
+            <SearchIcon>
+              <img src="/images/search-icon.svg" alt="" />
+            </SearchIcon>
+            {filteredData.length !== 0 && (
+              <div className="data-window">
+                {filteredData.slice(0, 15).map((value) => {
+                  return (
+                    <div className="window-box">
+                      <p
+                        className="window-col"
+                        onClick={(e) => console.log(e.target.textContent)}>
+                        {value}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
-          <SearchIcon>
-            
-            <img src="/images/search-icon.svg" alt="" />
-          </SearchIcon>
         </Search>
         <Nav>
           <NavListWrap>

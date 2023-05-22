@@ -1,0 +1,23 @@
+.data-window{
+    margin-top: 5px;
+    width: 260px;
+    height: 200px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow: hidden;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 5;
+    border-radius: 0px 0px 14px 14px;
+}
+.window-col{
+    padding-left: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.window-box{
+    width: 100%;
+}
+.window-box:hover{
+    background-color: gray;
+}
