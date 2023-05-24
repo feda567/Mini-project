@@ -1,0 +1,193 @@
+.main-signup {
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow-x: hidden;
+    background: linear-gradient(to right, #ebe9e9 50%, #502780 50%);
+    
+  }
+  .main-signup .signup-container {
+    height: 75vh;
+    width: 50%;
+    background: linear-gradient(to right bottom, rgb(255, 255, 255), rgba(115, 62, 201, 0.4));
+    border-radius: 1rem;
+    margin: 2rem auto;
+    margin-top: 12vh;
+    box-shadow: 0.5rem 0.5rem 2rem -1rem #3a3939;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  
+  .main-signup .signup-container .left-side,
+  .main-signup .signup-container .right-side {
+    margin: 2rem;
+    box-shadow: 0.5rem 0.5rem 2rem -1rem #3a3939;
+    height: 80%;
+    width: 45%;
+    border-radius: 10px;
+    box-sizing: border-box;
+   
+  }
+  .main-signup .signup-container .left-side {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .main-signup .signup-container .right-side {
+  
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  
+  }
+  .main-signup .signup-container .right-side input {
+    display: flex;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    height: 2rem;
+    width: 80%;
+    margin-left: 15px;
+    margin-bottom: 1rem;
+    padding: 0.2rem 1rem;
+    font-size: small;
+   
+    color: gray;
+    transition: all 0.1s ease-in-out;
+    box-sizing: border-box;
+    
+    
+  }
+  @media screen and (max-width: 1024px) {
+    .main-signup .signup-container {
+      width: 70%;
+    }
+    
+    .main-signup .signup-container .right-side input {
+      width: 70%;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .main-signup .signup-container {
+      width: 80%;
+    }
+  
+    .main-signup .signup-container .right-side {
+      width: 100%;
+    }
+    
+    .main-signup .signup-container .right-side input {
+      width: 80%;
+    }
+  
+    .main-signup .signup-container .left-side {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .main-signup .signup-container {
+      width: 90%;
+    }
+  
+    .main-signup .signup-container .right-side input {
+      width: 100%;
+    }
+    
+  }
+  
+  .main-signup .signup-container .right-side input:focus {
+    outline: none;
+    border: none;
+  }
+  
+  .main-signup .signup-container .right-side input:hover {
+    box-shadow: 2px 2px 9px -1px #502780;
+  }
+  .main-signup .signup-container .right-side .title{
+    font-weight: bold;
+    font-size: large;
+    font-family: serif;
+    color:#502780;
+    margin-top: -15px;
+    margin-bottom: 15px;
+   
+  }
+  .main-signup .signup-container .right-side button {
+    width: 75%; 
+    margin-top: 10px;
+    background-color: #502780;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    transition: all 0.5 ease;
+    margin-left: 15px;
+  }
+  
+  .main-signup .signup-container .right-side button:hover {
+    box-shadow: 0.5px 0.5px 6px -1px gray;
+    transform: translateY(-5px);
+  }
+  .main-signup .signup-container .right-side .para{
+    margin-left: 15px;
+    margin-top: 3px;
+    color: #502780;
+    font-weight:bold;
+    font-size: medium;
+  }
+  
+  .main-signup .signup-container .right-side img {
+    width: 55px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .main-signup .signup-container .right-side .upload{
+    font-family: serif;
+    font-weight: bold;
+    font-size:medium;
+    color: #502780;
+    margin-left: 10px;
+    
+    display: inline-flex;
+    align-items: center; 
+  }
+  
+  .main-signup .signup-container .left-side .logo{
+    font-size:small;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #502780;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 15px;
+  }
+  .main-signup .signup-container .left-side .welcome{
+    font-weight: bolder;
+      font-size: x-large;
+      font-family:'Texturina', serif;
+      color:#502780;
+      margin-bottom: 20px;
+  }
+  .applogo{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:170px;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

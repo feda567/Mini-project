@@ -34,7 +34,6 @@ const PostModal = (props) => {
           snapshot.ref.getDownloadURL().then((downloadURL) => {
             setVideoUrl(downloadURL);
             console.log('Download URL:', downloadURL);
-            // You can save the download URL to your database or use it in your app as needed
           });
         }).catch((error) => {
           console.error('Error uploading video:', error);
@@ -247,7 +246,7 @@ const AssetButton=styled.div`
     display:flex;
     align-items:center;
     height:40px;
-    min-width:auto;
+    min-width:58px;
     color:rgba(0,0,0,0.5);
     .postimg{
       display:flex;
@@ -259,8 +258,8 @@ const AssetButton=styled.div`
     .postvid{
       display:flex;
       width:48px;
-      margin-right:20px;
-      margin-left:30px;
+      padding-right:20px;
+      padding-left:30px;
       cursor: pointer; 
     }
 `;

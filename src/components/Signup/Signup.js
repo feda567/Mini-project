@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import Add from "../../img/addAvatar.png"
+import Add from "../../img/addpic.png"
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { auth, db, storage } from "../../firebase"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore"; 
 import { useNavigate, Link } from 'react-router-dom';
 import logo from './logo.png';
+import './Signup.css'
 const Signup = () => {
   const [err, setErr] = useState(false)
   const [isEmailSent, setIsEmailSent] = useState(false)
@@ -88,25 +89,30 @@ const Signup = () => {
   }, [navigate]);
 
   return (
-    <div className='formContainer'>
-      <div className='formWrapper'>
+    <div className='main-signup'>
+      <div className='signup-container'>
+        <div className='left-side'>
+        <div className='welcome'>WELCOME ABOARD!</div>
       <img src={logo} className="applogo" alt="logo"  />
-        <span className='logo'>CUSAT CONNECTS</span>
-        <span className='title'>SIGN UP</span>
+        <span className='logo'>engage,inspire,connect..</span>
+        </div>
+        <div className='right-side'>
+        <div className='title'>SIGN UP</div>
         <form onSubmit={handleSubmit}>
           <input type="text" placeholder='User name'></input> 
-          <input type="email" placeholder='Enter you email'></input>
+          <input type="email" placeholder='Email'></input>
           <input type="password" placeholder='Password' />
           <input style={{ display: "none" }} type="file" id='file' />
           <label htmlFor="file">
             <img src={Add} alt="" />
-            <span>Upload Profile Picture</span>
+            <div className='upload'>Upload Profile Picture</div>
           </label>
           <button>Sign up</button>
           {err}
           {isEmailSent && <span></span>}
-          <p>Already have an account? <Link to="/">Login</Link> </p>
+          <div className='para'>Already have an account? <Link to="/">Login</Link> </div>
         </form>
+        </div>
       </div>
     </div>
   )

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import logo from './logo.png';
+import lala from './lala.png'
 import { auth } from "../../firebase"
 import "./Login.css"
 const Login = () => {
@@ -26,19 +27,26 @@ const Login = () => {
   };
 
   return (
-    <div className='formContainer'>
+    <div className='main-login'>
       
-      <div className='formWrapper'>
+      <div className='login-container'>
+      <div className="left-side">
       <img src={logo} className="applogo" alt="logo"  />
-        <span className='logo'>CUSAT CONNECTS</span>
+        
         <span className='title'>Login</span>
+        
         <form onSubmit={handleSubmit}>
-          <input type="email" placeholder='Enter your email' />
+          <input type="email" placeholder='Email' />
           <input type="password" placeholder='Password' />
           <button>Login</button>
           {err && <span>{err}</span>}
-          <p>New User?<Link to="/signup">Register</Link></p>
+          <div className="para">New User?<Link to="/signup">Register</Link></div>
         </form>
+        </div>
+        <div className="right-side">
+        <div className="welcome">WELCOME BACK!!</div>
+        <img src={lala} className="applogo1" alt="logo"  />
+        </div>
       </div>
     </div>
   )

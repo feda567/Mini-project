@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
-/*________________________________________________________________________________*/
-
 const Comment = (props) => {
   const [text, setText] = useState("");
 
@@ -21,6 +19,29 @@ const Comment = (props) => {
         ...props.comments,
       ],
     });
+  };
+
+  const deleteComment = async (commentId) => {
+    const updatedComments = [...props.comments];
+  
+    // Find the index of the comment to delete
+    const commentIndex = updatedComments.findIndex(
+      (comment) => comment.id === commentId && comment.email === props.user.email
+    );
+  
+    if (commentIndex !== -1) {
+      updatedComments.splice(commentIndex, 1);
+  
+      // Update the comments in the database
+      await updateDoc(doc(db, "articles", props.id), {
+        comments: updatedComments,
+      });
+    }
+  };
+  
+
+  const isCurrentUserCommentAuthor = (comment) => {
+    return comment.email === props.user.email; // Compare the comment's author email with the current user's email
   };
 
   return (
@@ -44,7 +65,11 @@ const Comment = (props) => {
                 <h6>{comment.name}</h6>
                 <span>{comment.email}</span>
               </div>
-             
+              {isCurrentUserCommentAuthor(comment) && (
+                <button  onClick={() => deleteComment(comment.id)}>
+                  <img src="./images/delete.webp" alt=""/>
+                </button>
+              )}
             </div>
             <p>{comment.text}</p>
           </div>
@@ -55,7 +80,6 @@ const Comment = (props) => {
 };
 export default Comment;
 
-/*________________________________________________________________________________*/
 
 const Container = styled.div`
   padding: 5px 16px 8px;
@@ -70,7 +94,7 @@ const Container = styled.div`
     }
   }
 `;
-/*_________________________________________*/
+
 const CommentContainer = styled.div`
   display: flex;
   padding-top: 15px;
@@ -79,6 +103,10 @@ const CommentContainer = styled.div`
     height: 40px;
     border-radius: 50%;
     margin-right:5px;
+  }
+  button{
+    border:none;
+    background-color: #f2f2f2;
   }
   .content {
     width: 100%;

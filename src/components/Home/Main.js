@@ -36,8 +36,6 @@ const Main = (props) => {
   const deletePost = (id) => {
     deleteDoc(doc(db, "articles", id));
   };
-
-  
   
 
   const handleClick=(e)=>{
@@ -98,7 +96,10 @@ const Main = (props) => {
         </button>
         <button>
           <img src="/images/poll-icon.svg" className="feed-images" alt=""/>
-          <span>Poll</span>
+          <button className="uploading"
+          >
+               Poll
+          </button>
         </button>
       </div>
     </ShareBox>
@@ -127,7 +128,7 @@ const Main = (props) => {
                 <EditModel>
                   
                     <li onClick={() => deletePost(article.id)}>
-                      <img src="/images/delete.svg" alt="" />
+                      <img src="/images/delete.webp" alt="" />
                       <h6>Delete post</h6>
                     </li>
                 </EditModel>
@@ -156,7 +157,7 @@ const Main = (props) => {
                   />
                 )}
                 <span className="likes">
-                {article.likes.length} {article.likes.length === 1 ? "like • " : "likes •"}
+                {article.likes.length} {article.likes.length === 1 ? " like • " : " likes •"}
                 </span>
               </li>
               <li onClick={() => setShowComments((prev) => [...prev, article.id])}>
@@ -264,10 +265,10 @@ const ShareBox=styled(CommonCard)`
       padding-bottom:4px;
       button{
         img{
-          margin:0 4px 0 -2px;
+          margin:0 0 0 -2px;
         }
         span,.uploading{
-          color:#70b5f9;
+          color:#502780;
           cursor:pointer;
         }
       }
@@ -277,8 +278,10 @@ const ShareBox=styled(CommonCard)`
       width:28px;
       margin-right:8px;
     }
+    
  }
   `;
+
 const Article=styled(CommonCard)`
 padding:0;
 margin:0 0 8px;
@@ -411,6 +414,7 @@ border-bottom:1px solid #e9e5df;
 list-style:none;
 .likes{
   justify-content:flex-start;
+  margin-right:5px;
 }
 
 li{
