@@ -2,12 +2,12 @@
 
 body,
 html{
-  background: linear-gradient(to left top, rgb(255, 255, 255), rgba(115, 62, 201, 0.4));
+
+  background: linear-gradient(to left top, rgb(253, 242, 254), rgba(115, 62, 201, 0.4));
   height: 100%;
   margin: 0;
-  overflow-x:hidden;
+  overflow-y: scroll;
 }
-
 div,h1,h2,h3,h4,h5,h6,i,img,header,label,li,nav,p,small,span,ul{
   margin: 0;
   padding: 0;

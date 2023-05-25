@@ -198,7 +198,7 @@ const Container = styled.div`
   padding: 0 24px;
   position: relative;
   top: 20;
-  width: 94vw;
+  width: 94%;
   right:20;
   z-index: 100;
   
@@ -227,7 +227,7 @@ const Search = styled.div`
       border: none;
       box-shadow: none;
       background-color: #dce6f1;
-      border-radius: 2px;
+      border-radius: 5px;
       color: rgba(0, 0, 0, 0.9);
       width: 218px;
       padding: 0 8px 0 40px;
@@ -258,7 +258,7 @@ const SearchIcon = styled.div`
 const Nav = styled.nav`
   margin-left: auto;
   display: block;
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     position: fixed;
     left: 0;
     bottom: 0;

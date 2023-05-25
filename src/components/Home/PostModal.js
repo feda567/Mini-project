@@ -84,7 +84,7 @@ const PostModal = (props) => {
                 </Header>
                 <ShareContent>
                     <UserInfo>
-                        {props.user.photoURL ? (<img src={props.user.photoURL}/>)
+                        {props.user.photoURL ? (<img src={props.user.photoURL} alt=""/>)
                         :(<img src="/images/user.svg" alt=""/>)
                         }
                         <span>{props.user.displayName}</span>
@@ -111,7 +111,7 @@ const PostModal = (props) => {
         <label htmlFor="file">
         Select an image to share</label>
     </p>
-    {shareImage && <img src={URL.createObjectURL(shareImage)}/>}
+    {shareImage && <img src={URL.createObjectURL(shareImage)} alt=""/>}
     </UploadImage>
     :
     assetArea==='media' &&
@@ -272,26 +272,17 @@ ${AssetButton}{
 }
 `;
 
-const ShareComment=styled.div`
-padding-left:8px;
-margin-right:auto;
-border-left:1px solid rgba(0,0,0,0.15);
-${AssetButton}{
-    svg{
-        margin-right:5px;
-    }
-}
-`;
+
 
 const PostButton=styled.button`
     min-width:60px;
     border-radius:20px;
     padding-left:16px;
     padding-right:16px;
-    background:${(props) => (props.disabled ? "rgba(0,0,0,0.8)" : "#0a66c2")};
+    background:${(props) => (props.disabled ? "rgba(0,0,0,0.8)" : "#7133d6")};
     color:${(props) => (props.disabled ? "rgba(1,1,1,0.2)" : "white")};
     &:hover{
-        background:${(props) => (props.disabled ? "rgba(0,0,0,0.08)" : "#004182")};
+        background:${(props) => (props.disabled ? "rgba(0,0,0,0.08)" : "#4e278f")};
     }
 `;
 
