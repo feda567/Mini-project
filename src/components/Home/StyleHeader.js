@@ -151,6 +151,10 @@ export const SignOut = styled.div`
   transition-duration: 167ms;
   text-align: center;
   display: none;
+  @media (max-width: 1024px) {
+    position: absolute;
+    top: -50px; 
+  }
 `;
 
 export const User = styled(NavList)`
@@ -173,6 +177,18 @@ export const User = styled(NavList)`
       display: flex;
       justify-content: center;
       cursor:pointer;
+    }
+  }
+  @media (max-width: 1024px) {
+    &:hover {
+      ${SignOut} {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+        position: absolute;
+        top: -50px;
+      }
     }
   }
 `;
