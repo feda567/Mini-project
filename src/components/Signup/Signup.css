@@ -179,14 +179,21 @@ margin-left: auto;
 margin-right: auto;
 width:170px;
 }
+.password-input-container {
+  position: relative;
+}
 
+.password-input {
+  padding-right: 30px; /* Adjust the padding as needed */
+}
 
+.password-toggle-image {
+  width:100%;
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  right:50px;
+  transform: translateY(-50%);
+  cursor: pointer;
 
-
-
-
-
-
-
-
-
+}

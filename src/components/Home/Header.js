@@ -83,11 +83,6 @@ const Header = (props) => {
     }
   };
 
-  const handleImageChange = (e) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0]);
-    }
-  };
 
   useEffect(() => {
     if (image) {

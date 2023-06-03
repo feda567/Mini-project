@@ -183,3 +183,24 @@
     color:#260b46;
     margin-top: 40px;
   }
+  .password-input-container {
+    position: relative;
+  }
+  
+  .password-input {
+    padding-right: 30px; /* Adjust the padding as needed */
+  }
+
+  .main-login .login-container .left-side .password-toggle-image {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    left:68%;
+    left:65%;
+    right: 58%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  
