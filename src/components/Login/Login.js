@@ -35,6 +35,14 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleRegisterClick = () => {
+    if (auth.currentUser) {
+      alert("Please logout before registering.");
+    } else {
+      navigate("/signup");
+    }
+  };
+
   return (
     <div className='main-login'>
       <div className='login-container'>
@@ -51,7 +59,7 @@ const Login = () => {
               />
               <div className="password-toggle-container">
                 <img
-                  src={showPassword ? hideImage : showImage}
+                  src={showPassword ? showImage : hideImage}
                   alt="Toggle Password Visibility"
                   className="password-toggle-image"
                   onClick={toggleShowPassword}
@@ -59,7 +67,10 @@ const Login = () => {
               </div>
             </div>
             {err && <span>{err}</span>}
-            <div className="para">New User?<Link to="/signup">Register</Link></div>
+            <div className="para">
+              New User?
+              <a href="" onClick={handleRegisterClick}>Register</a>
+            </div>
             <button>Login</button>
           </form>
         </div>

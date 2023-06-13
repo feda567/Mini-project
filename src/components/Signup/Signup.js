@@ -117,7 +117,7 @@ const Signup = () => {
                 className={`password-input ${showPassword ? "show-password" : ""}`}
               />
               <img
-                src={showPassword ? hideImage : showImage}
+                src={showPassword ? showImage : hideImage}
                 alt="Toggle Password Visibility"
                 className="password-toggle-image"
                 onClick={toggleShowPassword}

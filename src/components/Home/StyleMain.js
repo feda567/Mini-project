@@ -2,6 +2,15 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   grid-area: main;
+  width: 100%;
+
+@media (min-width: 768px) {
+  width: 550px;
+}
+
+@media (min-width: 1024px) {
+  width: 1000px;
+}
 `;
 export const CommonCard = styled.div`
   text-align:center;
