@@ -126,7 +126,6 @@ const Main = (props) => {
             <img src={article.actor.image} alt=""/>
             <div>
               <span>{article.actor.title}</span>
-              <span>{article.actor.description}</span>
               <span>{fuzzyTime(article.actor.date)}</span>
             </div>
           </a>

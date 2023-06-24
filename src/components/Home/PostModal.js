@@ -59,7 +59,6 @@ const PostModal = (props) => {
         setAssetArea(area);
     };
     const postArticle=(e)=>{
-        console.log('post malone:r');
         e.preventDefault();
         if(e.target !== e.currentTarget){
             return;
@@ -122,7 +121,7 @@ const PostModal = (props) => {
     />
     <p>
         <label htmlFor="file">
-        Select an image to share</label>
+        Click here to select image </label>
     </p>
     {shareImage && <img src={URL.createObjectURL(shareImage)} alt=""/>}
     </UploadImage>
@@ -138,7 +137,7 @@ const PostModal = (props) => {
     />
     <p>
         <label htmlFor="file" >
-             Select a video to share
+             Click here to select video
         </label>
     </p>
     {videoUrl && (
