@@ -1,10 +1,19 @@
-import {useUser} from "../../context/AuthContext";
-import {useEffect, useState} from "react";
+import "./index.css"
+import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useParams } from "react-router-dom";
+import { useUser } from "../../context/AuthContext";
 
 const CustomProfile = () => {
     const [detail, setDetail] = useState([])
+    const { slug } = useParams()
+    const { fetchPostDetails, postDetails, fetchVideoDetails, videoDetails } = useUser()
+    
+    const [interests, setInterests] = useState([]);
+    const [posts, setPosts] = useState(null)
+    const [videos, setVideos] = useState(null)
+
 
     useEffect(() => {
         const fetchUserDetails = async (uid) => {
@@ -25,22 +34,102 @@ const CustomProfile = () => {
                     userDetails.push(userData);
                 });
                 setDetail(userDetails)
-                console.log("User details:", userDetails);
                 return userDetails;
             } catch (error) {
                 console.log("Error fetching user details:", error);
                 return null;
             }
         };
-        fetchUserDetails("HqyQopQRejRLCRE9dRaFDMU0fZh2")
+        fetchUserDetails(slug)
 
     },)
 
+
+    useEffect(() => {
+            fetchPostDetails(detail[0]?.email)
+            fetchVideoDetails(detail[0]?.email)
+            setPosts(postDetails)
+            setVideos(videoDetails)
+        return () => {
+            postDetails.splice(0, postDetails.length)
+            videoDetails.splice(0, videoDetails.length)
+        };
+    }, [postDetails,videoDetails])
+
+    console.log(postDetails);
+
     return (
-        <div>
-            <p>hy,{detail[0]?.displayName}</p>
-            <p>hy,{detail[0]?.email}</p>
-            <img src={detail[0]?.photoUrl} alt="image"/>
+        <div className="main-div">
+            <div className="tab-content">
+                <img className="image-div" src={detail[0]?.photoURL} alt="" />
+                <div className="Link">
+                <p className="profile-name">{detail[0]?.displayName}</p>
+                <p className="profile-about">{detail[0]?.about}</p>
+                {interests && (
+              <div>
+                <div className="interests-container">
+                  {detail[0]?.interests.col1 &&
+                    detail[0]?.interests.col1.map((interest) => (
+                      <button className="interest-button" key={interest}>
+                        {interest}
+                      </button>
+                    ))}
+                  {detail[0]?.interests.col2 &&
+                    detail[0]?.interests.col2.map((interest) => (
+                      <button className="interest-button" key={interest}>
+                        {interest}
+                      </button>
+                    ))}
+                  {detail[0]?.interests.col3 &&
+                    detail[0]?.interests.col3.map((interest) => (
+                      <button className="interest-button" key={interest}>
+                        {interest}
+                      </button>
+                    ))}
+                  {detail[0]?.interests.col4 &&
+                    detail[0]?.interests.col4.map((interest) => (
+                      <button className="interest-button" key={interest}>
+                        {interest}
+                      </button>
+                    ))}
+                  {detail[0]?.interests.others &&
+                  detail[0]?.interests.others
+                  .filter((interest) => interest !== "")
+                  .map((interest) => (
+                    <button className="interest-button" key={interest} >
+                      {interest}
+                    </button>
+                  ))}
+                   </div>
+                </div>
+            )}
+                </div>
+            </div>
+            <div className="post-section">
+                <div className="post-section-content">
+                    <h1>Images</h1>
+                    <div className="post-div">
+                        {posts && posts.length > 0 ? (
+                            posts.map((val) => (
+                                <img src={val} alt="" height={"230px"} width={"230px"} />
+                            ))
+                        ) : (
+                            <p>No posts available</p>
+                        )}
+                    </div>
+                    <h1>Videos</h1>
+                    <div className="videos-div">
+                        {videos && videos.length > 0 ? (
+                            videos.map((val) => (
+                                <video src={val}  height={"180px"} width={"230px"} controls />
+                            ))
+                        ) : (
+                            <p>No videos available</p>
+                        )}
+                    </div>
+                </div>
+            </div>
+           
         </div>
     );
 };

@@ -9,7 +9,7 @@ import Signup from "./components/Signup/Signup";
 import Msg from "./components/msg.jsx";
 import Profile from "./components/Profile/Profile";
 import CustomProfile from "./components/CustomProfile/CustomProfile";
-
+import InterestPage from './components/InterestPage'
 
 function App(props) {
   useEffect(() => {
@@ -24,6 +24,7 @@ function App(props) {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/interest" element={<InterestPage />} />
             <Route path="/home" element={
               <div>
                 <Header />
@@ -33,7 +34,7 @@ function App(props) {
             <Route path="/messaging" element={<Msg />} />
             <Route path="/profile" element={<Profile />} />
             <Route
-                path="/customprofile"
+                path="/customprofile/:slug"
                 element={<CustomProfile/>}
             />
           </Routes>

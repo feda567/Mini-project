@@ -47,6 +47,7 @@ export const ShareBox=styled(CommonCard)`
       align-items: center;
       padding:8px 16px 0px 16px;
       img{
+        
         width:48px;
         border-radius:50%;
         margin-right:8px;

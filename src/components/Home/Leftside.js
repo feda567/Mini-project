@@ -1,12 +1,13 @@
-import {connect} from "react-redux";
-import Pic from "../../img/photo.svg"
-import {useContext, useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
+import Pic from "../../img/photo.svg";
+import { useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { auth, storage, db} from '../../firebase';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import {  doc, updateDoc } from "firebase/firestore";
-import {  updateProfile } from 'firebase/auth';
-import{
+import { auth, storage, db } from "../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { doc, updateDoc, onSnapshot } from "firebase/firestore";
+import { updateProfile } from "firebase/auth";
+
+import {
   Container,
   ArtCard,
   UserInfo,
@@ -14,6 +15,11 @@ import{
   Photo,
   Link,
   Widget,
+  SharedActor,
+  EditModel,
+  AddInterestForm,
+  InterestInput,
+  AddInterestButton,InterestButton,InterestsContainer
 } from "./StyleLeftside";
 
 const Leftside = (props) => {
@@ -22,10 +28,26 @@ const Leftside = (props) => {
   const { currentUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const fileInputRef = useRef(null);
-
+  const [interests, setInterests] = useState([]);
+ 
   useEffect(() => {
     if (currentUser && currentUser.uid) {
       setLoading(false);
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (currentUser && currentUser.uid) {
+      const unsubscribe = onSnapshot(doc(db, "users", currentUser.uid), (doc) => {
+        if (doc.exists()) {
+          const userInterests = doc.data().interests;
+          if (userInterests) {
+            setInterests(userInterests);
+          }
+        }
+      });
+
+      return () => unsubscribe();
     }
   }, [currentUser]);
 
@@ -60,7 +82,7 @@ const Leftside = (props) => {
                 .catch((error) => console.log(error.message));
             })
             .catch((error) => {
-              console.log(error.message, 'error getting the image url');
+              console.log(error.message, "error getting the image url");
             });
           setImage(null);
         })
@@ -70,50 +92,87 @@ const Leftside = (props) => {
     }
   }, [currentUser, image]);
 
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
+
   return (
     <Container>
       <ArtCard>
         <UserInfo>
           <CardBackground />
           <a>
-            <Photo img src={url ? url : currentUser.photoURL} alt={Pic} onClick={handleImageClick}
-          style={{ cursor: 'pointer' }} />
-          <input
-          type='file'
-          accept='image/*'
-          style={{ display: 'none' }}
-          ref={fileInputRef}
-          onChange={handleImageChange}
-        />
-            <Link>Welcome, {props.user ? props.user.displayName:"there"}!</Link>
+            <Photo
+              img
+              src={url ? url : currentUser.photoURL}
+              alt={Pic}
+              onClick={handleImageClick}
+              style={{ cursor: "pointer" }}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              ref={fileInputRef}
+              onChange={handleImageChange}
+            />
+            <Link>
+              Welcome, {props.user ? props.user.displayName : "there"}!
+            </Link>
           </a>
-          <a>
-           
-          </a>
-        </UserInfo>
-        <Widget>
           
-        </Widget>
-        
+        </UserInfo>
+        {interests && (
+          <div>
+            <InterestsContainer>
+            {interests.col1 &&
+                    interests.col1.map((interest) => (
+                      <InterestButton key={interest}>
+                        {interest}
+                      </InterestButton>
+                    ))}
+                  {interests.col2 &&
+                    interests.col2.map((interest) => (
+                      <InterestButton key={interest}>
+                        {interest}
+                      </InterestButton>
+                    ))}
+                  {interests.col3 &&
+                    interests.col3.map((interest) => (
+                      <InterestButton key={interest}>
+                        {interest}
+                      </InterestButton>
+                    ))}
+                  {interests.col4 &&
+                    interests.col4.map((interest) => (
+                      <InterestButton key={interest}>
+                        {interest}
+                      </InterestButton>
+                    ))}
+                  {interests.others &&
+                  interests.others
+                  .filter((interest) => interest !== "")
+                  .map((interest) => (
+                    <InterestButton key={interest} className="interest-button">
+                      {interest}
+                    </InterestButton>
+                  ))}
+             
+            
+             </InterestsContainer>
+          </div>
+        )}
       </ArtCard>
-
-     
     </Container>
   );
 };
 
-
-
-
-
-const mapStateToProps=(state)=>{
+const mapStateToProps = (state) => {
   return {
-    user:state.userState.user,
-  }
-}
+    user: state.userState.user,
+  };
+};
 
-
-export default connect(mapStateToProps)(Leftside);
+export default connect(mapStateToProps)(Leftside);  

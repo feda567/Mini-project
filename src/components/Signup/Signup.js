@@ -17,14 +17,22 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const displayName = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
     const file = e.target[3].files[0];
-    const allowedDomains = ['ug.cusat.ac.in', 'pg.cusat.ac.in','cusat.ac.in'];
+    const allowedDomains = ['ug.cusat.ac.in', 'pg.cusat.ac.in', 'cusat.ac.in'];
     const emailParts = email.split('@');
     const emailDomain = emailParts[1];
+  
+    // Check if the username is already taken
+    const usernameTaken = await isUsernameTaken(displayName);
+    if (usernameTaken) {
+      alert('Username already taken. Please choose a different username.');
+      return;
+    }
+  
     if (!allowedDomains.includes(emailDomain)) {
       alert('Invalid email domain!');
       return;
@@ -84,14 +92,18 @@ const Signup = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         if (user.emailVerified) {
-          navigate("/home");
+          navigate("/interest");
         }
       }
       
     });
     return unsubscribe;
   }, [navigate]);
-
+  const isUsernameTaken = async (username) => {
+    const usersSnapshot = await db.collection('users').where('displayName', '==', username).get();
+    return !usersSnapshot.empty;
+  };
+  
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
     console.log(showPassword)
@@ -102,7 +114,7 @@ const Signup = () => {
       <div className='signup-container'>
         <div className='left-side'>
           <div className='welcome'>WELCOME ABOARD!</div>
-          <img src={logo} className="applogo" alt="logo" />
+          <img src={logo} className="applogo" alt="./images/spin-loader.svg" />
           <span className='logo'>engage,inspire,connect..</span>
         </div>
         <div className='right-side'>

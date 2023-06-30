@@ -1,15 +1,15 @@
-import {connect} from 'react-redux';
-import {signOutAPI} from "../../actions";
-import {Link} from "react-router-dom";
-import {useContext, useState, useEffect, useRef} from "react";
-import {AuthContext} from "../../context/AuthContext";
-import {auth, storage, db} from "../../firebase";
-import {updateProfile} from 'firebase/auth';
-import {doc, updateDoc} from "firebase/firestore";
-import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
+import { connect } from 'react-redux';
+import { signOutAPI } from "../../actions";
+import { Link } from "react-router-dom";
+import { useContext, useState, useEffect, useRef } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { auth, storage, db } from "../../firebase";
+import { updateProfile } from 'firebase/auth';
+import { doc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import "./Home.css";
-import {useUser} from "../../context/AuthContext";
-import {useNavigate} from "react-router-dom";
+import { useUser } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 import {
@@ -38,46 +38,51 @@ const Header = (props) => {
         }
     };
 
-    const [filteredData, setFilteredData] = useState([]);
-    const [wordEntered, setWordEntered] = useState("");
+    const { fetchDetails, allUserDetails } = useUser();
 
-    const {fetchDetails, data} = useUser();
-    console.log(data);
+
+
+    const [allDetails, setAllDetails] = useState(null)
+
+
+
+    console.log(allDetails);
 
     const history = useNavigate();
-    const handleFilter = (event) => {
-        const searchWord = event.target.value;
 
-        setWordEntered(searchWord);
+    const [searchKey, setSearchKey] = useState('');
 
-        const newFilter = data.filter((value) => {
-            return value.toLowerCase().includes(searchWord.toLowerCase());
-        });
-
-        if (searchWord === "") {
-            setFilteredData([]);
-        } else {
-            setFilteredData(newFilter);
-        }
+    const handleSearchKeyChange = (event) => {
+        setSearchKey(event.target.value);
     };
+
+    const filteredObjects = allDetails?.filter((obj) =>
+        obj.displayName.toLowerCase().includes(searchKey.toLowerCase())
+    );
+
+
 
     useEffect(() => {
         fetchDetails();
+        setAllDetails(allUserDetails);
 
         return () => {
-            data.splice(0, data.length);
+            allDetails?.splice(0, allDetails?.length)
         };
-    },[handleFilter]);
+    }, [allUserDetails]);
 
-    const handleProfileRoute = () => {
-        history("/customprofile");
+    const handleObjectClick = (uid) => {
+        // Find the object with the matching UID
+        history(`/customprofile/${uid}`);
+
 
     };
+
 
 
     const [image, setImage] = useState(null);
     const [url, setUrl] = useState(null);
-    const {currentUser} = useContext(AuthContext);
+    const { currentUser } = useContext(AuthContext);
     const [loading, setLoading] = useState(true);
     const fileInputRef = useRef(null);
     useEffect(() => {
@@ -98,6 +103,8 @@ const Header = (props) => {
         }
     };
 
+
+
     useEffect(() => {
         if (image) {
             const imageRef = ref(storage, `${currentUser.uid}/image`);
@@ -106,9 +113,9 @@ const Header = (props) => {
                     getDownloadURL(imageRef)
                         .then((url) => {
                             setUrl(url);
-                            updateProfile(auth.currentUser, {photoURL: url})
+                            updateProfile(auth.currentUser, { photoURL: url })
                                 .then(() => {
-                                    updateDoc(doc(db, "users", currentUser.uid), {photoURL: url})
+                                    updateDoc(doc(db, "users", currentUser.uid), { photoURL: url })
                                         .then(() => {
                                             console.log("User photoURL updated successfully.");
                                         })
@@ -137,7 +144,7 @@ const Header = (props) => {
             <Content>
                 <Logo>
                     <a href="/home">
-                        <img src="/images/cusatconnects.svg" alt=""/>
+                        <img src="/images/cusatconnects.svg" alt="" />
                     </a>
                 </Logo>
                 <Search className="search">
@@ -146,22 +153,22 @@ const Header = (props) => {
                             <input
                                 type="text"
                                 placeholder="Search"
-                                value={wordEntered}
-                                onChange={handleFilter}
+                                value={searchKey}
+                                onChange={handleSearchKeyChange}
                             />
                         </div>
                         <SearchIcon>
-                            <img src="/images/search-icon.svg" alt=""/>
+                            <img src="/images/search-icon.svg" alt="" />
                         </SearchIcon>
-                        {filteredData.length !== 0 && (
+                        {filteredObjects.length !== 0 && searchKey?.length > 0 && (
                             <div className="data-window">
-                                {filteredData.slice(0, 15).map((value) => {
+                                {filteredObjects.map((value) => {
                                     return (
                                         <div className="window-box">
                                             <p
                                                 className="window-col"
-                                                onClick={handleProfileRoute}>
-                                                {value}
+                                                onClick={() => handleObjectClick(value.uid)}>
+                                                {value.displayName}
                                             </p>
                                         </div>
                                     );
@@ -173,15 +180,15 @@ const Header = (props) => {
                 <Nav>
                     <NavListWrap>
                         <NavList className="active">
-                            <a>
-                                <img src="/images/nav-home.svg" alt=""/>
+                            <a href="/home">
+                                <img src="/images/nav-home.svg" alt="" />
                                 <button className='b'>Home</button>
                             </a>
                         </NavList>
 
                         <NavList>
                             <Link to="/profile">
-                                <img src="/images/profile.svg" height={25} alt=""/>
+                                <img src="/images/profile.svg" height={25} alt="" />
                                 <button className="b">Profile</button>
                             </Link>
                         </NavList>
@@ -189,7 +196,7 @@ const Header = (props) => {
                         <NavList>
 
                             <Link to="/messaging">
-                                <img src="/images/nav-messaging.svg" alt=""/>
+                                <img src="/images/nav-messaging.svg" alt="" />
                                 <button className="b">Messaging</button>
                             </Link>
                         </NavList>
@@ -200,12 +207,12 @@ const Header = (props) => {
                                     src={url ? url : currentUser.photoURL}
                                     alt=''
                                     onClick={handleImageClick}
-                                    style={{cursor: 'pointer'}}
+                                    style={{ cursor: 'pointer' }}
                                 />
                                 <span>
-                  Me
-                <img src="/images/down-icon.svg" alt=""/>
-                </span>
+                                    Me
+                                    <img src="/images/down-icon.svg" alt="" />
+                                </span>
                             </a>
 
                             <SignOut>

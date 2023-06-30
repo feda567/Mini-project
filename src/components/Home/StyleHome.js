@@ -34,8 +34,8 @@ export const Section = styled.section`
 export const Layout = styled.div`
   display: grid;
   grid-template-areas: "leftside main rightside";
-  grid-template-columns: minmax(0, 4fr) minmax(0, 9fr) minmax(0, 4fr);
-  column-gap: 25px;
+  grid-template-columns: minmax(0, 4.5fr) minmax(0, 9fr) minmax(0, 4fr);
+  column-gap: 26px;
   row-gap: 25px;
   /* grid-template-row: auto; */
   margin: 12px 25px;
