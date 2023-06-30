@@ -190,7 +190,7 @@ export const Description=styled.div`
 padding:0 16px;
 overflow:hidden;
 color:rgba(0,0,0,.9);
-font-size:14px;
+font-size:24px;
 text-align:left;
   `;
 
@@ -287,6 +287,7 @@ button{
 `;
 export const Content=styled.div`
     text-align:center;
+    font-size:50px;
     &>img{
       width:30px;
     }

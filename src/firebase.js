@@ -6,7 +6,7 @@ import 'firebase/compat/storage';
 
 
 const firebaseConfig = {
- apiKey: "AIzaSyB0ZI-m84wyyLhA4KZ35R0ty4RF_Ct0Dj0",
+  apiKey: "AIzaSyB0ZI-m84wyyLhA4KZ35R0ty4RF_Ct0Dj0",
   authDomain: "poll-67c94.firebaseapp.com",
   databaseURL: "https://poll-67c94-default-rtdb.firebaseio.com",
   projectId: "poll-67c94",

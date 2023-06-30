@@ -16,7 +16,8 @@ import {
     PostButton,
     Editor,
     UploadImage,
-    UploadVideo
+    UploadVideo,
+    UploadText
   } from "./StylePostModal";
   
 
@@ -25,7 +26,6 @@ import {
 const PostModal = (props) => {
     const [editorText,setEditorText]=useState("");
     const [shareImage,setShareImage]=useState("");
-    
     const [assetArea,setAssetArea]=useState("");
     const [videoUrl, setVideoUrl] = useState("");
 
@@ -54,6 +54,7 @@ const PostModal = (props) => {
       };
     
     const switchAssetArea=(area)=>{
+        setEditorText("");
         setShareImage("");
         setVideoUrl("");
         setAssetArea(area);
@@ -68,6 +69,7 @@ const PostModal = (props) => {
             video:videoUrl,
             user:props.user,
             description:editorText,
+            text:editorText,
             timestamp : Date.now(),
         };
         props.postArticle(payload);
@@ -80,7 +82,7 @@ const PostModal = (props) => {
         setVideoUrl("");
         setAssetArea("");
         props.handleClick(e);
-        props.handlePost(e);
+        props.handlePost();
     };
 
     return (  
@@ -102,54 +104,70 @@ const PostModal = (props) => {
                         <span>{props.user.displayName}</span>
                     </UserInfo>
                     <Editor>
-                    <textarea 
+            {assetArea === 'text' ? (
+                <UploadText>
+                <textarea
                     value={editorText}
-                    onChange={(e)=>setEditorText(e.target.value)}
-                    placeholder="what do you want to talk about?"
-                    autoFocus={true} 
-                    />
-
-{ assetArea==='image' ?
-
-<UploadImage>
-    <input type="file" 
-    accept='image/gif ,image/jpeg ,image/png'
-    name="image"
-    id="file"
-    style={{display:"none"}}
-    onChange={handleChange} 
-    />
-    <p>
-        <label htmlFor="file">
-        Click here to select image </label>
-    </p>
-    {shareImage && <img src={URL.createObjectURL(shareImage)} alt=""/>}
-    </UploadImage>
-    :
-    assetArea==='media' &&
-    <UploadVideo>
-    <input 
-    type="file" 
-    name="media"
-    id="file"
-    style={{display:"none"}}
-    onChange={handleVideo}
-    />
-    <p>
-        <label htmlFor="file" >
-             Click here to select video
-        </label>
-    </p>
-    {videoUrl && (
-    <ReactPlayer  width={'100%'}  height={'100%'} url={videoUrl} controls={true} playsinline/>
-    )}
-    </UploadVideo>
-}
-                    
-                    </Editor>
+                    onChange={(e) => setEditorText(e.target.value)}
+                    placeholder="What do you want to talk about?"
+                    autoFocus={true}
+                />
+                </UploadText>
+            ) : assetArea === 'image' ? (
+                <UploadImage>
+                  <textarea
+                    value={editorText}
+                    onChange={(e) => setEditorText(e.target.value)}
+                    placeholder="What do you want to talk about?"
+                    autoFocus={true}
+                />
+                <input
+                    type="file"
+                    accept='image/gif,image/jpeg,image/png'
+                    name="image"
+                    id="file"
+                    style={{ display: "none" }}
+                    onChange={handleChange}
+                />
+                <p>
+                    <label htmlFor="file">
+                    Click here to select an image
+                    </label>
+                </p>
+                {shareImage && <img src={URL.createObjectURL(shareImage)} alt="" />}
+                </UploadImage>
+            ) : assetArea === 'media' && (
+                <UploadVideo>
+                    <textarea
+                    value={editorText}
+                    onChange={(e) => setEditorText(e.target.value)}
+                    placeholder="What do you want to talk about?"
+                    autoFocus={true}
+                />
+                <input
+                    type="file"
+                    name="media"
+                    id="file"
+                    style={{ display: "none" }}
+                    onChange={handleVideo}
+                />
+                <p>
+                    <label htmlFor="file">
+                    Click here to select a video
+                    </label>
+                </p>
+                {videoUrl && (
+                    <ReactPlayer width={'100%'} height={'100%'} url={videoUrl} controls={true} playsinline />
+                )}
+                </UploadVideo>
+            )}
+            </Editor>
                 </ShareContent>
                 <ShareCreation>
                     <AttachAssets>
+                    <AssetButton onClick={() => switchAssetArea("text")}>
+                            <img src="/images/announcement-icon.svg" className="posttext" alt="" />
+                    </AssetButton>
                         <AssetButton onClick={()=>switchAssetArea("image")}>
                             <img src="/images/photo-icon.svg" className="postimg" alt=""/>
                         </AssetButton>

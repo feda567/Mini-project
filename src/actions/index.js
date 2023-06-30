@@ -107,6 +107,22 @@ export function postArticleAPI(payload){
             });
             dispatch(setLoading(false));
         }
+        else if(payload.text){
+            db.collection('articles').add({
+                actor:{
+                    description:payload.user.email,
+                    title:payload.user.displayName,
+                    date:payload.timestamp,
+                    image:payload.user.photoURL,
+                },
+                video:"",
+                shareImg:"",
+                comments:[],
+                likes:[],
+                description:payload.text,
+            });
+            dispatch(setLoading(false));
+        }
     };
 }
 

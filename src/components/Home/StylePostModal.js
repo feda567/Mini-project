@@ -104,6 +104,13 @@ color:rgba(0,0,0,0.5);
   padding-left:30px;
   cursor: pointer; 
 }
+.posttext{
+  display:flex;
+  padding-right:10px;
+  padding-left:10px;
+  padding-bottom:5px;
+  cursor: pointer; 
+}
 `;
 export const AttachAssets=styled.div`
 align-items:center;
@@ -154,3 +161,7 @@ img{
 export const UploadVideo=styled.div`
 text-align:center;
 `;
+export const UploadText=styled.div`
+text-align:center;
+`;
+
