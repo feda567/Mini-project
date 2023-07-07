@@ -41,7 +41,7 @@ export const Search = styled.div`
       background-color: #dce6f1;
       border-radius: 5px;
       color: rgba(0, 0, 0, 0.9);
-      width: 218px;
+      width: 70%;
       padding: 0 8px 0 40px;
       line-height: 1.75;
       font-weight: 400;

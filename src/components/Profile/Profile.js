@@ -11,7 +11,12 @@ import {
 import { doc, updateDoc, onSnapshot } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import {
-  Container,InterestsContainer,InterestInput,InterestButton,AddInterestForm,AddInterestButton,
+  Container,
+  InterestsContainer,
+  InterestInput,
+  InterestButton,
+  AddInterestForm,
+  AddInterestButton,
   ArtCard,
   CardBackground,
   Photo,
@@ -22,8 +27,9 @@ import {
   AboutText,TextArea
 } from "./StyleProfile";
 import Posts from "./Posts";
-
+import Loader from "../Loader";
 const Profile = (props) => {
+
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null);
   const { currentUser } = useContext(AuthContext);
@@ -53,7 +59,6 @@ const Profile = (props) => {
           }
         }
       );
-
       return () => unsubscribe();
     }
   }, [currentUser]);
@@ -93,9 +98,9 @@ const Profile = (props) => {
       })
         .then(() => {
           console.log("New interest added successfully.");
-          setNewInterest(""); 
-          setShowDropdown(false); 
-          setShowInputField(false); 
+          setNewInterest("");
+          setShowDropdown(false);
+          setShowInputField(false);
         })
         .catch((error) => {
           console.log(error.message);
@@ -121,7 +126,9 @@ const Profile = (props) => {
               setUrl(url);
               updateProfile(auth.currentUser, { photoURL: url })
                 .then(() => {
-                  updateDoc(doc(db, "users", currentUser.uid), { photoURL: url })
+                  updateDoc(doc(db, "users", currentUser.uid), {
+                    photoURL: url,
+                  })
                     .then(() => {
                       console.log("User photoURL updated successfully.");
                     })
@@ -143,7 +150,7 @@ const Profile = (props) => {
   if (loading) {
     return (
       <div>
-        <img src="./images/spin-loader.svg" width="200px" height="200px" />
+        <Loader />
       </div>
     );
   }
@@ -155,17 +162,15 @@ const Profile = (props) => {
   const handleAboutInputChange = (e) => {
     setAboutText(e.target.value);
   };
-  
 
   const addAbout = (e) => {
-    e.preventDefault(); // Prevent form submission
-
+    e.preventDefault();
     if (aboutText) {
       const userRef = doc(db, "users", currentUser.uid);
       updateDoc(userRef, { about: aboutText })
         .then(() => {
           console.log("About added successfully.");
-          setShowAboutInput(false); // Hide the input field after adding
+          setShowAboutInput(false);
         })
         .catch((error) => {
           console.log(error.message);
@@ -302,6 +307,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-
 export default connect(mapStateToProps)(Profile);
-

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Pic from "../../img/photo.svg";
+import Pic from "../../img/img.png";
 import { useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { auth, storage, db } from "../../firebase";
@@ -14,12 +14,7 @@ import {
   CardBackground,
   Photo,
   Link,
-  Widget,
-  SharedActor,
-  EditModel,
-  AddInterestForm,
-  InterestInput,
-  AddInterestButton,InterestButton,InterestsContainer
+  InterestButton,InterestsContainer
 } from "./StyleLeftside";
 
 const Leftside = (props) => {
@@ -92,8 +87,6 @@ const Leftside = (props) => {
     }
   }, [currentUser, image]);
 
-
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -107,7 +100,7 @@ const Leftside = (props) => {
             <Photo
               img
               src={url ? url : currentUser.photoURL}
-              alt={Pic}
+              alt=""
               onClick={handleImageClick}
               style={{ cursor: "pointer" }}
             />
@@ -158,9 +151,7 @@ const Leftside = (props) => {
                     <InterestButton key={interest} className="interest-button">
                       {interest}
                     </InterestButton>
-                  ))}
-             
-            
+                  ))}                  
              </InterestsContainer>
           </div>
         )}

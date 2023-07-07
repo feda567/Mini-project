@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  grid-area: leftside;
-  
-  
+  grid-area: leftside;  
 `;
+
 export const EditModel = styled.ul`
   animation: fadeIn 0.5s;
   text-align: start;
@@ -46,6 +45,7 @@ export const EditModel = styled.ul`
     }
   }
 `;
+
 export const SharedActor=styled.div`
 padding-right:40px;
 flex-wrap:nowrap;
@@ -97,7 +97,6 @@ button{
 }
 `;
 
-
 export const ArtCard = styled.div`
   text-align: center;
   overflow: hidden;
@@ -148,8 +147,6 @@ export const Link = styled.div`
   font-weight: 600;
 `;
 
-
-
 export const Widget = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   padding-top: 12px;
@@ -185,10 +182,11 @@ export const Widget = styled.div`
 `;
 
 export const AddInterestForm = styled.form`
-display: flex;
-align-items: center;
-margin-top: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 `;
+
 export const InterestButton = styled.button`
   background-color: #fff;
   border: none;
@@ -210,6 +208,7 @@ export const InterestButton = styled.button`
     box-shadow: 0 0 0 2px #814df0, 0 0 0 4px #fff;
   }
 `;
+
 export const InterestInput = styled.input`
 flex-grow: 1;
 padding: 8px;
@@ -221,23 +220,23 @@ margin-left:4px;
 `;
 
 export const AddInterestButton = styled.button`
-background-color: #814df0;
-color: #fff;
-border: none;
-border-radius: 20px;
-padding: 8px 16px;
-margin-left: 8px;
-font-size: 14px;
-cursor: pointer;
-transition: background-color 0.3s;
-outline: none;
+  background-color: #814df0;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  margin-left: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  outline: none;
 
-&:hover {
-  background-color: #6339b4;
-}
+  &:hover {
+    background-color: #6339b4;
+  }
 `;
 export const InterestsContainer = styled.div`
-display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
 `;

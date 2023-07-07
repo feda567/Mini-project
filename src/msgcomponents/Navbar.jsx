@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
-import {  updateProfile } from 'firebase/auth';
-import { auth, storage, db} from '../firebase';
-import {  doc, updateDoc } from "firebase/firestore";
+import { updateProfile } from 'firebase/auth';
+import { auth, storage, db } from '../firebase';
+import { doc, updateDoc } from "firebase/firestore";
 import { AuthContext } from '../context/AuthContext';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -74,7 +74,6 @@ const Navbar = () => {
           style={{ cursor: 'pointer' }}
         />
         <span>{currentUser.displayName}</span>
-      
         <input
           type='file'
           accept='image/*'

@@ -6,12 +6,12 @@ const msg = () => {
   return (
     <div className='home'>
       <div className='container'>
-        <Sidebar/>
-        <Chat/>
+        <Sidebar />
+        <Chat />
       </div>
-      
+
     </div>
   )
 }
 
-export default msg
+export default msg;

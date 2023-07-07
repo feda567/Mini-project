@@ -1,9 +1,8 @@
 import styled from "styled-components";
+
 export const Container = styled.div`
   max-width: 100%;
 `;
-
-
 
 export const Section = styled.section`
   min-height:20px;
@@ -37,7 +36,6 @@ export const Layout = styled.div`
   grid-template-columns: minmax(0, 4.5fr) minmax(0, 9fr) minmax(0, 4fr);
   column-gap: 26px;
   row-gap: 25px;
-  /* grid-template-row: auto; */
   margin: 12px 25px;
   @media (max-width: 768px) {
     display: flex;

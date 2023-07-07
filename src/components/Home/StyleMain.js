@@ -3,15 +3,14 @@ import styled from "styled-components";
 export const Container = styled.div`
   grid-area: main;
   width: 100%;
-
-@media (min-width: 768px) {
-  width: 550px;
+  @media (min-width: 768px) {
+    width: 550px;
 }
-
-@media (min-width: 1024px) {
-  width: 1000px;
+  @media (min-width: 1024px) {
+    width: 65vw;
 }
 `;
+
 export const CommonCard = styled.div`
   text-align:center;
   overflow:hidden;
@@ -84,63 +83,63 @@ export const ShareBox=styled(CommonCard)`
     }
     
  }
-  `;
+`;
 
 export const Article=styled(CommonCard)`
-padding:0;
-margin:0 0 8px;
-overflow:visible;
+  padding:0;
+  margin:0 0 8px;
+  overflow:visible;
 `;
 
 export const SharedActor=styled.div`
-padding-right:40px;
-flex-wrap:nowrap;
-padding:12px 16px 0;
-margin-bottom:8px;
-align-items:center;
-display:flex;
-a{
-  margin-right:12px;
-  flex-grow:1;
-  overflow:hidden;
+  padding-right:40px;
+  flex-wrap:nowrap;
+  padding:12px 16px 0;
+  margin-bottom:8px;
+  align-items:center;
   display:flex;
-  text-decoration:none;
-
-  img{
-    width:48px;
-    height:48px;
-  }
-  >div{
-    display:flex;
-    flex-direction:column;
+  a{
+    margin-right:12px;
     flex-grow:1;
-    flex-basis:0;
-    margin-left:8px;
     overflow:hidden;
+    display:flex;
+    text-decoration:none;
 
-    span{
-      text-align:left;
-      :first-child{
-        font-size:14px;
-        font-weight:700;
-        color:rgba(0,0,0,1);
-      }
-      :nth-child(n+1){
-        font-size:12px;
-        color:rgba(0,0,0,0.6);
+    img{
+      width:48px;
+      height:48px;
+    }
+    >div{
+      display:flex;
+      flex-direction:column;
+      flex-grow:1;
+      flex-basis:0;
+      margin-left:8px;
+      overflow:hidden;
+
+      span{
+        text-align:left;
+        :first-child{
+          font-size:14px;
+          font-weight:700;
+          color:rgba(0,0,0,1);
+        }
+        :nth-child(n+1){
+          font-size:12px;
+          color:rgba(0,0,0,0.6);
+        }
       }
     }
   }
-}
-button{
-  position:absolute;
-  right:12px;
-  top: 0;
-  background:transparent;
-  border:none;
-  outline:none;
-  padding:.5px;
-}
+  button{
+    position:absolute;
+    right:12px;
+    top: 0;
+    background:transparent;
+    border:none;
+    outline:none;
+    padding:.5px;
+  }
 `;
 
 export const EditModel = styled.ul`
@@ -185,106 +184,104 @@ export const EditModel = styled.ul`
   }
 `;
 
-
 export const Description=styled.div`
-padding:0 16px;
-overflow:hidden;
-color:rgba(0,0,0,.9);
-font-size:24px;
-text-align:left;
+  padding:0 16px;
+  overflow:hidden;
+  color:rgba(0,0,0,.9);
+  font-size:24px;
+  text-align:left;
   `;
 
 export const SharedImg=styled.div`
-margin-top:8px;
-width:100%;
-display:block;
-position:relative;
-background-color:#f9fafb;
-img{
-  object-fit:contain;
+  margin-top:8px;
   width:100%;
-  height:100%;
-}
+  display:block;
+  position:relative;
+  background-color:#f9fafb;
+  img{
+    object-fit:contain;
+    width:100%;
+    height:100%;
+  }
 `;
 
 export const SocialCounts=styled.ul`
-line-height:2.3;
-display:flex;
-align-items:flex-start;
-overflow:auto;
-margin:0 16px;
-padding:8px 0;
-border-bottom:1px solid #e9e5df;
-list-style:none;
-.likes{
-  justify-content:flex-start;
-  margin-right:5px;
-}
-
-li{
+  line-height:2.3;
   display:flex;
-  align-items:center;
-  margin-right:5px;
-  font-size:13px;
-  button{
-    display:flex;
-    border:none;
-    background-color:white;
+  align-items:flex-start;
+  overflow:auto;
+  margin:0 16px;
+  padding:8px 0;
+  border-bottom:1px solid #e9e5df;
+  list-style:none;
+  .likes{
+    justify-content:flex-start;
+    margin-right:5px;
   }
-  img{
+
+  li{
+    display:flex;
+    align-items:center;
+    margin-right:5px;
+    font-size:13px;
+    button{
+      display:flex;
+      border:none;
+      background-color:white;
+    }
+    img{
+      width:25px;
+      
+    }
+    .comments{
+    cursor:pointer;
+    }
+  }
+`;
+export const SocialActions=styled.div`
+  align-items:center;
+  display:flex;
+  margin:0;
+  justify-content:flex-start;
+  min-height:40px;
+  padding:4px 8px;
+  button{
+    display:inline-flex;
+    align-items:center;
+    padding:8px;
+    background:transparent;
+    border:none;
+    .liked{
+        display:none;
+        width:30px;
+      }
+      .unLiked{
+        display:flex;
+      width:30px;
+      }
+      &:hover{
+        background-color: rgba(0, 0, 0, 0.08);
+      }
+
+      &.active {
+        color: #ab0c1c;
+        .liked{
+          display: inline-block;
+        }
+        .unLiked {
+          display: none;
+        }
+      }
+    @media(min-width:768px){
+    }
+    .review{
+    display:flex;
     width:25px;
     
   }
-  .comments{
-   cursor:pointer;
   }
-}
 `;
-export const SocialActions=styled.div`
-align-items:center;
-display:flex;
-margin:0;
-justify-content:flex-start;
-min-height:40px;
-padding:4px 8px;
-button{
-  display:inline-flex;
-  align-items:center;
-  padding:8px;
-  background:transparent;
-  border:none;
-  .liked{
-      display:none;
-      width:30px;
-    }
-    .unLiked{
-      display:flex;
-     width:30px;
-    }
 
-    &:hover{
-      background-color: rgba(0, 0, 0, 0.08);
-    }
-
-    &.active {
-      color: #ab0c1c;
-      .liked{
-        display: inline-block;
-      }
-      .unLiked {
-        display: none;
-      }
-    }
-  @media(min-width:768px){
-  }
-
-  .review{
-  display:flex;
-  width:25px;
-  
-}
-}
-`;
 export const Content=styled.div`
     text-align:center;
     font-size:50px;

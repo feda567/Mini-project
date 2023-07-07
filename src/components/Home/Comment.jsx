@@ -25,25 +25,20 @@ const Comment = (props) => {
 
   const deleteComment = async (commentId) => {
     const updatedComments = [...props.comments];
-  
-    // Find the index of the comment to delete
     const commentIndex = updatedComments.findIndex(
       (comment) => comment.id === commentId && comment.email === props.user.email
     );
   
     if (commentIndex !== -1) {
       updatedComments.splice(commentIndex, 1);
-  
-      // Update the comments in the database
       await updateDoc(doc(db, "articles", props.id), {
         comments: updatedComments,
       });
     }
   };
   
-
   const isCurrentUserCommentAuthor = (comment) => {
-    return comment.email === props.user.email; // Compare the comment's author email with the current user's email
+    return comment.email === props.user.email; 
   };
 
   return (

@@ -16,47 +16,45 @@ const CustomProfile = () => {
 
 
     useEffect(() => {
-        const fetchUserDetails = async (uid) => {
-            try {
-                const usersRef = collection(db, "users");
-                const q = query(usersRef, where("uid", "==", uid));
-                const querySnapshot = await getDocs(q);
+      const fetchUserDetails = async (uid) => {
+          try {
+              const usersRef = collection(db, "users");
+              const q = query(usersRef, where("uid", "==", uid));
+              const querySnapshot = await getDocs(q);
 
-                if (querySnapshot.empty) {
-                    console.log("No user found with the provided uid");
-                    return null;
-                }
+              if (querySnapshot.empty) {
+                  console.log("No user found with the provided uid");
+                  return null;
+              }
 
-                const userDetails = [];
+              const userDetails = [];
 
-                querySnapshot.forEach((doc) => {
-                    const userData = doc.data();
-                    userDetails.push(userData);
-                });
-                setDetail(userDetails)
-                return userDetails;
-            } catch (error) {
-                console.log("Error fetching user details:", error);
-                return null;
-            }
-        };
-        fetchUserDetails(slug)
+              querySnapshot.forEach((doc) => {
+                  const userData = doc.data();
+                  userDetails.push(userData);
+              });
+              setDetail(userDetails)
+              return userDetails;
+          } catch (error) {
+              console.log("Error fetching user details:", error);
+              return null;
+          }
+      };
+      fetchUserDetails(slug)
 
-    },)
+  },[slug])
 
 
-    useEffect(() => {
-            fetchPostDetails(detail[0]?.email)
-            fetchVideoDetails(detail[0]?.email)
-            setPosts(postDetails)
-            setVideos(videoDetails)
-        return () => {
-            postDetails.splice(0, postDetails.length)
-            videoDetails.splice(0, videoDetails.length)
-        };
-    }, [postDetails,videoDetails])
+  useEffect(() => {
+      if (detail.length > 0) {
+        fetchPostDetails(detail[0]?.email);
+        fetchVideoDetails(detail[0]?.email);
+      }
+      setPosts(postDetails);
+      setVideos(videoDetails);
+    }, [detail, fetchPostDetails, fetchVideoDetails, postDetails, videoDetails]);
 
-    console.log(postDetails);
+    console.log("continous fetching");
 
     return (
         <div className="main-div">

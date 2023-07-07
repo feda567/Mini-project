@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import logo from './logo.png';
@@ -7,26 +7,36 @@ import { auth } from "../../firebase"
 import "./Login.css"
 import showImage from "./visibility.svg";
 import hideImage from "./visibilityoff.svg";
-
-
+import Loader from "../Loader";
 const Login = () => {
   const [err, setErr] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
-
+    setLoading(true);
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       if (!userCredential.user.emailVerified) {
+        setLoading(false);
         setErr("Please verify your email before logging in.");
       } else {
+
         navigate("/home");
       }
     } catch (err) {
+      setLoading(false);
       setErr(err.message);
     }
   };
@@ -42,6 +52,14 @@ const Login = () => {
       navigate("/signup");
     }
   };
+  if (loading) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
+
 
   return (
     <div className='main-login'>

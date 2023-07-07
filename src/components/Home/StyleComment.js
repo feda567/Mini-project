@@ -56,6 +56,7 @@ export const CommentContainer = styled.div`
     p {
       padding-top: 10px;
       text-align: start;
+      font-size:20px;
     }
   }
 `;

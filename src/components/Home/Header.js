@@ -10,8 +10,6 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import "./Home.css";
 import { useUser } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
-
 import {
     Container,
     Content,
@@ -24,34 +22,22 @@ import {
     SignOut,
     User
 } from "./StyleHeader";
-import Profile from "../Profile/Profile";
 
 
 const Header = (props) => {
     const handleSignOut = async () => {
         try {
-            // Perform sign-out logic here
             await props.signOut();
         } catch (error) {
-            // Handle any error that occurred during sign-out
             console.log(error);
         }
     };
 
     const { fetchDetails, allUserDetails } = useUser();
-
-
-
     const [allDetails, setAllDetails] = useState(null)
-
-
-
-    console.log(allDetails);
-
+    console.log("all detail");
     const history = useNavigate();
-
     const [searchKey, setSearchKey] = useState('');
-
     const handleSearchKeyChange = (event) => {
         setSearchKey(event.target.value);
     };
@@ -59,8 +45,6 @@ const Header = (props) => {
     const filteredObjects = allDetails?.filter((obj) =>
         obj.displayName.toLowerCase().includes(searchKey.toLowerCase())
     );
-
-
 
     useEffect(() => {
         fetchDetails();
@@ -74,12 +58,7 @@ const Header = (props) => {
     const handleObjectClick = (uid) => {
         // Find the object with the matching UID
         history(`/customprofile/${uid}`);
-
-
     };
-
-
-
     const [image, setImage] = useState(null);
     const [url, setUrl] = useState(null);
     const { currentUser } = useContext(AuthContext);
@@ -96,15 +75,6 @@ const Header = (props) => {
             fileInputRef.current.click();
         }
     };
-
-    const handleImageChange = (e) => {
-        if (e.target.files[0]) {
-            setImage(e.target.files[0]);
-        }
-    };
-
-
-
     useEffect(() => {
         if (image) {
             const imageRef = ref(storage, `${currentUser.uid}/image`);
@@ -133,11 +103,9 @@ const Header = (props) => {
                 });
         }
     }, [currentUser, image]);
-
     if (loading) {
         return <div>Loading...</div>;
     }
-
 
     return (
         <Container>
@@ -200,7 +168,6 @@ const Header = (props) => {
                                 <button className="b">Messaging</button>
                             </Link>
                         </NavList>
-
                         <User>
                             <a>
                                 <img
@@ -214,21 +181,17 @@ const Header = (props) => {
                                     <img src="/images/down-icon.svg" alt="" />
                                 </span>
                             </a>
-
                             <SignOut>
                                 <Link to="/" onClick={handleSignOut}>Sign Out</Link>
 
                             </SignOut>
                         </User>
-
-
                     </NavListWrap>
                 </Nav>
             </Content>
         </Container>
     );
 };
-
 
 const mapStateToProps = (state) => {
     return {

@@ -19,27 +19,27 @@ function App(props) {
 
 
   return (
-      <div className="App">
-        <Router>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/interest" element={<InterestPage />} />
-            <Route path="/home" element={
-              <div>
-                <Header />
-                <Home />
-              </div>
-            } />
-            <Route path="/messaging" element={<Msg />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route
-                path="/customprofile/:slug"
-                element={<CustomProfile/>}
-            />
-          </Routes>
-        </Router>
-      </div>
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/interest" element={<InterestPage />} />
+          <Route path="/home" element={
+            <div>
+              <Header />
+              <Home />
+            </div>
+          } />
+          <Route path="/messaging" element={<Msg />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/customprofile/:slug"
+            element={<CustomProfile />}
+          />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

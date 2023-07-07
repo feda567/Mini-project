@@ -5,7 +5,6 @@ import { ChatContext } from "../context/ChatContext";
 const Message = ({ message }) => {
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
-
   const ref = useRef();
 
   useEffect(() => {
@@ -16,7 +15,7 @@ const Message = ({ message }) => {
     const timestamp = message.date.toDate(); // Convert Firestore Timestamp to JavaScript Date object
     const now = new Date(); // Current date and time
     const diffInMinutes = Math.round((now - timestamp) / (1000 * 60)); // Difference in minutes
-  
+
     if (diffInMinutes < 1) {
       return 'Just now';
     } else if (diffInMinutes < 60) {
